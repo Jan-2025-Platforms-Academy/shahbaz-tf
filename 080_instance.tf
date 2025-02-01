@@ -17,6 +17,13 @@ resource "aws_instance" "web" {
         echo "DB_PASSWORD=1Password1" >> /etc/environment
         echo "DB_DATABASE=sample" >> /etc/environment
 
+        INSTANCE_NAME=$(curl -s http://169.254.169.254/latest/meta-data/tags/instance/Name)
+        AZ=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)
+        PRIVATE_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
+        echo "INSTANCE_NAME=$INSTANCE_NAME" >> /etc/environment
+        echo "AZ=$AZ" >> /etc/environment
+        echo "PRIVATE_IP=$PRIVATE_IP" >> /etc/environment
+        
         source /etc/environment
         
         git clone https://github.com/rearviewmirror/platform_academy.git /tmp/platform_academy
