@@ -16,7 +16,7 @@ resource "aws_instance" "web" {
         echo "DB_USERNAME=admin" >> /etc/environment
         echo "DB_PASSWORD=1Password1" >> /etc/environment
         echo "DB_DATABASE=sample" >> /etc/environment
-
+        sleep 60
         INSTANCE_NAME=$(curl -s http://169.254.169.254/latest/meta-data/tags/instance/Name)
         AZ=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)
         PRIVATE_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
